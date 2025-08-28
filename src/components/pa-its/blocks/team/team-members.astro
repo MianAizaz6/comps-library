@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import person from '~/assets/images/teams/person.jpg';
+import twitter from '~/assets/images/teams/twitter-square.svg';
+import linkedIn from '~/assets/images/teams/linkedin-01.svg';
+import whatsapp from '~/assets/images/teams/whatsapp.svg';
+const experts = [
+  {
+    id: 1,
+    name: 'Thomas Mattes',
+    position: 'Managing Director ',
+    email: 'info@qma.com',
+    description:
+      'Championing Q-MA-BAU vision, Dan focuses on fostering partnerships, promoting sustainability, and inspiring change through thought leadership and community engagement.',
+    image: person,
+    socialLinks: [
+      { icon: linkedIn, url: 'https://linkedin.com' },
+      { icon: twitter, url: 'https://twitter.com' },
+      { icon: whatsapp, url: 'https://whatsapp.com' },
+    ],
+    reverse: false,
+  },
+
+  {
+    id: 2,
+    name: 'Egon Kummer',
+    position: 'Managing Director ',
+    email: 'info@qma.com',
+    description:
+      'Championing Freyra’s vision, Dan focuses on fostering partnerships, promoting sustainability, and inspiring change through thought leadership and community engagement.',
+    image: person,
+    socialLinks: [
+      { icon: linkedIn, url: 'https://linkedin.com' },
+      { icon: twitter, url: 'https://twitter.com' },
+      { icon: whatsapp, url: 'https://whatsapp.com' },
+    ],
+    reverse: false,
+  },
+
+  {
+    id: 3,
+    name: 'Lukas Mattes',
+    position: 'Managing Director ',
+    email: 'info@qma.com',
+    description:
+      'Championing Freyra’s vision, Dan focuses on fostering partnerships, promoting sustainability, and inspiring change through thought leadership and community engagement.',
+    image: person,
+    socialLinks: [
+      { icon: linkedIn, url: 'https://linkedin.com' },
+      { icon: twitter, url: 'https://twitter.com' },
+      { icon: whatsapp, url: 'https://whatsapp.com' },
+    ],
+    reverse: false,
+  },
+];
+---
+
+<section class="bg-[#CDF4E7] py-16 px-4">
+  <div class="flex md:flex-row flex-col justify-center gap-x-20 items-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      <span class="text-primary">Treffen <br /></span> Sie unsere Experten
+    </h2>
+    <p class="text-gray-700 mt-4 max-w-lg">
+      Lernen Sie die erfahrenen Köpfe hinter der Präzision und Umweltverantwortung von Q-MA Bau kennen. Unser
+      Führungsteam vereint jahrzehntelange WHG-Expertise mit zukunftsorientierter Ingenieurskunst, um zuverlässige und
+      zertifizierte Bauleistungen in ganz Süddeutschland zu realisieren.
+    </p>
+  </div>
+  <div class="max-w-3xl mx-auto space-y-10 mt-10">
+    {/* Heading */}
+
+    {
+      experts.map((expert) => {
+        const reverse = expert.id % 2 === 0;
+        return (
+          <div
+            class={`flex flex-col md:flex-row items-center justify-between gap-8 py-8 border-t border-green-300 ${reverse ? 'md:flex-row-reverse' : ''}`}
+          >
+            {/* Profile Image & Social Icons */}
+            <div class="flex items-center gap-3">
+              {/* Social Links */}
+              <div class="flex flex-col items-center gap-3 mt-4">
+                {expert.socialLinks.map((social) => {
+                  return (
+                    <a href={social.url} target="_blank" rel="noopener noreferrer">
+                      <Image src={social.icon} alt="LinkedIn" class="w-6 h-6" />
+                    </a>
+                  );
+                })}
+              </div>
+              {/* Profile Image */}
+              <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden">
+                <Image src={expert.image} alt={expert.name} class="w-full h-full object-cover" />
+              </div>
+            </div>
+
+            {/* Profile Information */}
+            <div class="text-center md:text-left">
+              <h3 class="text-xl font-bold text-gray-900">{expert.name}</h3>
+              <p class="text-primary font-semibold">{expert.position}</p>
+              <a href={`mailto:${expert.email}`} class="text-gray-600 hover:underline">
+                {expert.email}
+              </a>
+              <p class="text-gray-700 mt-2 max-w-md">{expert.description}</p>
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+</section>

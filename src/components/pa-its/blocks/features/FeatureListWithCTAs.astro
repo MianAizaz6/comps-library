@@ -1,0 +1,54 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  features: {
+    title: string;
+    description: string;
+    color: string; // Colors need to be added to safeList in tailwind.config.cjs
+    icon: string;
+    href?: string;
+    linkText?: string;
+  }[];
+}
+
+const { title, description, features } = Astro.props;
+---
+
+<SectionWrapper id="features" showHighlight={true}>
+  <div class="py-8 px-4 mx-auto max-w-screen-xl text-center sm:py-16 lg:px-6">
+    <h2
+      class="font-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+      set:html={title}
+    />
+    <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400" set:html={description} />
+  </div>
+  <div class="mt-8 lg:mt-12 space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+    {
+      features.map((feature) => {
+        return (
+          <div>
+            <Icon
+              name={feature.icon}
+              class={`text-${feature.color}-500 dark:text-${feature.color}-400 mx-auto mb-4 w-12 h-12 `}
+            />
+            <h3 class="mb-2 text-xl font-bold dark:text-white text-center" set:html={feature.title} />
+            <p class="mb-4 text-gray-500 dark:text-gray-400" set:html={feature.description} />
+            {feature.href && (
+              <a
+                href={feature.href}
+                class={`inline-flex items-center text-sm font-medium text-${feature.color}-600 hover:text-${feature.color}-700 dark:text-${feature.color}-500 dark:hover:text-${feature.color}-400`}
+              >
+                {feature.linkText}
+                <Icon name="material-symbols:chevron-right-rounded" class="ml-1 w-5 h-5" />
+              </a>
+            )}
+          </div>
+        );
+      })
+    }
+  </div>
+</SectionWrapper>

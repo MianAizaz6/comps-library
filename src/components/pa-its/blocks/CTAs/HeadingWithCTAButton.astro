@@ -1,0 +1,23 @@
+---
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import Button, { type Props as ButtonProps } from '../../Button.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  button: ButtonProps;
+}
+
+const { title, description, button } = Astro.props;
+---
+
+<SectionWrapper id="cta" containerClass="sm:py-16 lg:px-6">
+  <div class="mx-auto max-w-screen-sm text-center">
+    <h2
+      class="font-heading mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white"
+      set:html={title}
+    />
+    <p class="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg" set:html={description} />
+    <Button {...button} />
+  </div>
+</SectionWrapper>

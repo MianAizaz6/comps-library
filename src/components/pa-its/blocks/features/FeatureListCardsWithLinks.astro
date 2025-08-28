@@ -1,0 +1,71 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  id?: string;
+  showHighlight?: boolean;
+  title: string;
+  description: string;
+  features: {
+    title: string;
+    description: string;
+    color: string;
+    icon: string;
+    link?: string;
+  }[];
+}
+
+const { title, description, features, id } = Astro.props;
+---
+
+<section id={id ?? 'features'} class="py-16 bg-white">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-16">
+      <h2 class="font-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900" set:html={title} />
+      <p class="text-gray-500 sm:text-xl" set:html={description} />
+    </div>
+    <div class="grid md:grid-cols-2 gap-8">
+      {
+        features.map((feature) => (
+          <div class="group">
+            {feature.link ? (
+              <a
+                href={feature.link}
+                class="block p-6 bg-white rounded-lg shadow hover:shadow-lg transition-all duration-300 hover:scale-105 border border-gray-200"
+              >
+                <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-lg bg-primary group-hover:bg-green-600 transition-colors">
+                  <Icon name={feature.icon} class="w-6 h-6 text-white" />
+                </div>
+                <h3
+                  class="mb-2 text-xl font-bold text-gray-900 group-hover:text-primary transition-colors"
+                  set:html={feature.title}
+                />
+                <p class="text-gray-500 group-hover:text-gray-700 transition-colors" set:html={feature.description} />
+                <div class="mt-4 flex items-center text-primary font-semibold group-hover:text-green-600 transition-colors">
+                  <span class="text-sm">Mehr erfahren</span>
+                  <svg
+                    class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </a>
+            ) : (
+              <div class="p-6 bg-white rounded-lg shadow border border-gray-200">
+                <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-lg bg-primary">
+                  <Icon name={feature.icon} class="w-6 h-6 text-white" />
+                </div>
+                <h3 class="mb-2 text-xl font-bold text-gray-900" set:html={feature.title} />
+                <p class="text-gray-500" set:html={feature.description} />
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

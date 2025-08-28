@@ -1,0 +1,36 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+interface Category {
+  icon?: string;
+  label: string;
+  link?: string;
+}
+
+export interface Props {
+  id?: string;
+  categories: Category[];
+}
+
+const { id, categories } = Astro.props;
+---
+
+<SectionWrapper id={id} containerClass="mt-16 md:py-0 lg:py-0 py-0 ">
+  <div
+    class="mb-8 hidden md:grid grid-cols-2 gap-y-1 gap-x-6 sm:grid-cols-3 sm:gap-x-2 md:mb-0 md:grid-cols-11 lg:grid-cols-11"
+  >
+    {
+      categories.map((category) => (
+        <a href={category.link} class="group flex flex-col items-center text-center">
+          <div class="mx-auto mb-2 flex h-20 w-20 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 transition-transform duration-300 group-hover:scale-110 group-hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white group-hover:dark:bg-gray-700">
+            <Icon name={category.icon} class="h-8 w-8" />
+          </div>
+          <p class="text-sm font-semibold text-gray-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-white">
+            {category.label}
+          </p>
+        </a>
+      ))
+    }
+  </div>
+</SectionWrapper>

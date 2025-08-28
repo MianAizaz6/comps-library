@@ -1,0 +1,286 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '~/components/pa-its/Button.astro';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+}
+
+const {
+  title = 'Schnellbewerbung',
+  subtitle = 'Werden Sie Teil unseres Teams',
+  description = 'Senden Sie uns Ihre Bewerbung schnell und unkompliziert.',
+} = Astro.props;
+---
+
+<SectionWrapper id="schnellbewerbung">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-8">
+      <div
+        class="inline-flex items-center justify-center w-16 h-16 mx-auto mb-6 text-primary-600 bg-primary-100 rounded-lg dark:bg-primary-800 dark:text-primary-300"
+      >
+        <Icon name="tabler:user-plus" class="w-10 h-10" />
+      </div>
+      <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">{title}</h2>
+      <h3 class="text-xl text-gray-600 dark:text-gray-400 mb-2">{subtitle}</h3>
+      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{description}</p>
+    </div>
+
+    <form
+      class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8"
+      action="/api/quick-application"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Persönliche Daten -->
+        <div class="md:col-span-2">
+          <h3
+            class="text-lg font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-200 dark:border-gray-700 pb-2"
+          >
+            Persönliche Daten
+          </h3>
+        </div>
+
+        <div>
+          <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Vorname <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            required
+            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Ihr Vorname"
+          />
+        </div>
+
+        <div>
+          <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Nachname <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            required
+            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Ihr Nachname"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            E-Mail-Adresse <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="ihre.email@beispiel.de"
+          />
+        </div>
+
+        <div>
+          <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Telefonnummer
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="0711 123456789"
+          />
+        </div>
+
+        <!-- Position -->
+        <div class="md:col-span-2">
+          <h3
+            class="text-lg font-semibold text-gray-900 dark:text-white mb-4 mt-6 border-b border-gray-200 dark:border-gray-700 pb-2"
+          >
+            Gewünschte Position
+          </h3>
+        </div>
+
+        <div class="md:col-span-2">
+          <label for="position" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Position <span class="text-red-500">*</span>
+          </label>
+          <select
+            id="position"
+            name="position"
+            required
+            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          >
+            <option value="">Bitte wählen Sie eine Position</option>
+            <option value="bauarbeiter-whg">Bauarbeiter (m/w/d) WHG-Anlagen</option>
+            <option value="bauleiter-tankstelle">Bauleiter (m/w/d) Tankstellenbau</option>
+            <option value="facharbeiter-fugen">Facharbeiter (m/w/d) Fugenarbeiten</option>
+            <option value="bauingenieur-whg">Bauingenieur (m/w/d) WHG-Anlagen</option>
+            <option value="auszubildender">Auszubildender Bauwerksabdichter (m/w/d)</option>
+            <option value="projektleiter">Projektleiter WHG-Anlagen (m/w/d)</option>
+            <option value="initiativ">Initiativbewerbung</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="availability" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Verfügbarkeit ab
+          </label>
+          <input
+            type="date"
+            id="availability"
+            name="availability"
+            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+          />
+        </div>
+
+        <div>
+          <label for="salary" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Gehaltsvorstellung (brutto/Jahr)
+          </label>
+          <input
+            type="text"
+            id="salary"
+            name="salary"
+            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="z.B. 45.000 €"
+          />
+        </div>
+
+        <!-- Bewerbungsunterlagen -->
+        <div class="md:col-span-2">
+          <h3
+            class="text-lg font-semibold text-gray-900 dark:text-white mb-4 mt-6 border-b border-gray-200 dark:border-gray-700 pb-2"
+          >
+            Bewerbungsunterlagen
+          </h3>
+        </div>
+
+        <div>
+          <label for="cv" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Lebenslauf <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="file"
+            id="cv"
+            name="cv"
+            required
+            accept=".pdf,.doc,.docx"
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
+          />
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">PDF, DOC oder DOCX (max. 5MB)</p>
+        </div>
+
+        <div>
+          <label for="coverLetter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Anschreiben
+          </label>
+          <input
+            type="file"
+            id="coverLetter"
+            name="coverLetter"
+            accept=".pdf,.doc,.docx"
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
+          />
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">PDF, DOC oder DOCX (max. 5MB)</p>
+        </div>
+
+        <div class="md:col-span-2">
+          <label for="certificates" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Zeugnisse/Zertifikate
+          </label>
+          <input
+            type="file"
+            id="certificates"
+            name="certificates"
+            multiple
+            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100"
+          />
+          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            Mehrere Dateien möglich. PDF, DOC, DOCX, JPG, PNG (max. 5MB pro Datei)
+          </p>
+        </div>
+
+        <!-- Nachricht -->
+        <div class="md:col-span-2">
+          <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Zusätzliche Informationen
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Teilen Sie uns mit, warum Sie zu Q-MA-Bau passen oder stellen Sie Fragen..."></textarea>
+        </div>
+
+        <!-- Datenschutz -->
+        <div class="md:col-span-2 mt-6">
+          <div class="flex items-start">
+            <input
+              type="checkbox"
+              id="privacy"
+              name="privacy"
+              required
+              class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mt-1"
+            />
+            <label for="privacy" class="ml-3 text-sm text-gray-500 dark:text-gray-400">
+              Ich habe die <a href="/privacy" class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                >Datenschutzerklärung</a
+              > gelesen und erkläre mich damit einverstanden, dass meine Daten zur Bearbeitung meiner Bewerbung gespeichert
+              und verarbeitet werden. <span class="text-red-500">*</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 mt-6">
+          <div class="flex items-start">
+            <input
+              type="checkbox"
+              id="newsletter"
+              name="newsletter"
+              class="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mt-1"
+            />
+            <label for="newsletter" class="ml-3 text-sm text-gray-500 dark:text-gray-400">
+              Ich möchte über zukünftige Stellenausschreibungen und Neuigkeiten von Q-MA-Bau informiert werden.
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="md:col-span-2 flex justify-center mt-8">
+          <Button title="Bewerbung absenden" type="default" submit={true} size="lg" />
+        </div>
+      </div>
+    </form>
+
+    <!-- Hinweise -->
+    <div class="mt-8 text-center">
+      <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+        <div class="flex items-center justify-center mb-4">
+          <Icon name="tabler:info-circle" class="w-6 h-6 text-blue-600 dark:text-blue-400" />
+        </div>
+        <h4 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">Hinweise zur Bewerbung</h4>
+        <div class="text-blue-800 dark:text-blue-200 text-sm space-y-2">
+          <p>• Ihre Bewerbung wird vertraulich behandelt und nur von unserem HR-Team bearbeitet</p>
+          <p>• Wir melden uns innerhalb von 5 Werktagen bei Ihnen zurück</p>
+          <p>
+            • Bei Fragen können Sie uns gerne unter <a href="tel:+49711123456" class="font-medium underline"
+              >0711 123456</a
+            > erreichen
+          </p>
+          <p>• Ihre Daten werden nach Abschluss des Bewerbungsverfahrens gelöscht</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</SectionWrapper>

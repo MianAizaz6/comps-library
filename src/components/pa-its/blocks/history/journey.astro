@@ -1,0 +1,230 @@
+---
+import { Image } from 'astro:assets';
+import historyImg from '~/assets/images/history/history.png';
+
+const timelineEvents = [
+  {
+    id: 1,
+    icon: 'building',
+    year: 'März 2016',
+    text: 'Gründung der Q-MA Bau GmbH & Co. KG durch die Geschäftsführer Egon Kummer und Hans-Thomas Mattes sowie Erhalt der ersten WHG- und SCC-Zertifizierung',
+  },
+  {
+    id: 2,
+    icon: 'shovel',
+    year: 'Mai 2016',
+    text: 'Spatenstich für den ersten Großauftrag der Q-MA Bau GmbH & Co. KG – Beginn der Bauarbeiten beim Neubau der JET Tankstelle in Öpfingen',
+  },
+  {
+    id: 3,
+    icon: 'chart-line',
+    year: 'Januar 2017',
+    text: 'Im Geschäftsjahr 2016 konnten bereits 67 erfolgreiche Aufträge durchgeführt werden',
+  },
+  {
+    id: 4,
+    icon: 'trophy',
+    year: 'Januar 2019',
+    text: 'Im Geschäftsjahr 2018 wurden 104 Projekte realisiert',
+  },
+  {
+    id: 5,
+    icon: 'gas-pump',
+    year: 'März 2022',
+    text: 'Spatenstich für den größten Neubau der ECO-Tankstelle in Messkirch an der B311',
+  },
+  {
+    id: 6,
+    icon: 'medal',
+    year: 'Juli 2022',
+    text: 'Durchführung des 500. Projekts der Firmengeschichte',
+  },
+  {
+    id: 7,
+    icon: 'rocket',
+    year: 'Januar 2025',
+    text: 'Über 700 Projekte wurden bereits realisiert',
+  },
+  {
+    id: 8,
+    icon: 'laptop-code',
+    year: 'August 2025',
+    text: 'Neugestaltung der Homepage mit interaktiver Unternehmenshistorie',
+  },
+];
+---
+
+<section class="bg-white py-16">
+  <div class="max-w-[1200px] mx-auto">
+    {/* Top Section: Text & Image */}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center px-4 pb-8">
+      {/* Left - Text */}
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+          Unser <span class="text-primary">Weg</span>:Von <br />
+          der Vision zur Wirkung
+        </h2>
+        <p class="text-gray-600 mt-4 text-lg leading-relaxed">
+          At Freyra, sustainability is more than a goal; {`it's`} the core of our mission. We design innovative solutions
+          that not only drive business efficiency but also prioritize environmental impact. Every step we take is rooted
+          in creating a sustainable future for businesses and the planet.
+        </p>
+      </div>
+
+      <div class="rounded-lg overflow-hidden">
+        <Image src={historyImg} alt="Journey Map" class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    {/* Timeline Section */}
+    <div class="relative mt-24 hidden md:block lg:block">
+      <div class="absolute left-0 right-0 mx-auto w-full max-w-6xl h-6 bg-primary rounded-lg"></div>
+      <div class="relative max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        {
+          timelineEvents.map((event, index) => (
+            <div key={index} class="relative flex flex-col items-center">
+              <div class="w-[2px] h-16 bg-gray-300 absolute top-10" />
+
+              {/* Circle Connector */}
+              <div class="w-6 h-6 bg-white border-4 border-border-primary rounded-full absolute -top-4" />
+              <div class="w-8 h-8 flex items-center justify-center bg-white dark:text-black border-2 border-gray-400 rounded-full mt-4 text-sm font-semibold absolute -top-10">
+                {index + 1}
+              </div>
+
+              <div class="w-[2px] h-8 bg-gray-300 absolute top-2" />
+              {/* Year Label Positioned Properly */}
+              <div class="bg-primary z-10 text-white  px-3 py-1 text-[14px] font-semibold rounded-full mt-12">
+                <i class={`fas fa-${event.icon} mr-2`} /> {event.year}
+              </div>
+
+              <p class="text-center text-gray-700 text-sm max-w-[180px] mt-12">{event.text}</p>
+
+              {/* <div class="w-[2px] h-4 bg-gray-300 absolute bottom-5"></div> */}
+              {/* <div class="w-8 h-8 flex items-center justify-center bg-white border-2 border-gray-400 rounded-full mt-4 text-sm font-semibold">
+              {index + 1}
+            </div> */}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- mobile version of the timeline -->
+
+    <div class="max-w-7xl mx-auto !px-0">
+      <div class="bg-white w-full rounded-2xl shadow-xl pr-6 md:p-8 overflow-hidden block md:hidden lg:hidden">
+        <div class="relative">
+          <!-- Vertical line -->
+          <div class="absolute left-2 md:left-4 rounded-xl top-0 bottom-0 w-12 timeline-line"></div>
+
+          <!-- Timeline items -->
+          <div class="space-y-12">
+            {
+              timelineEvents.map((item) => (
+                <div class="timeline-item relative flex items-start left-2 md:left-4" id={`item${item.id}`}>
+                  <div class="timeline-number mt-12 flex-shrink-0 w-12 h-12 bg-white border-2 border-primary rounded-full flex items-center justify-center text-sm font-bold text-teal-700 z-10">
+                    {item.id}
+                  </div>
+                  <div class="ml-3 pb-8 timeline-content">
+                    <div class="date-badge bg-primary text-white px-4 py-2 rounded-full text-sm font-medium mb-3 inline-block">
+                      <i class={`fas fa-${item.icon} mr-2`} /> {item.year}
+                    </div>
+                    <div class="timeline-desc text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg border-[2px] border-gray-100">
+                      {item.text}
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const items = document.querySelectorAll('.timeline-item');
+
+    function getClosestToCenter() {
+      const viewportCenter = window.innerHeight / 2;
+      let closestItem = null;
+      let smallestDistance = Infinity;
+
+      items.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const itemCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(itemCenter - viewportCenter);
+
+        if (distance < smallestDistance) {
+          smallestDistance = distance;
+          closestItem = item;
+        }
+      });
+
+      return closestItem;
+    }
+
+    function handleScroll() {
+      const closest = getClosestToCenter();
+
+      if (closest) {
+        items.forEach((item) => item.classList.remove('active'));
+        closest.classList.add('active');
+      }
+    }
+
+    handleScroll();
+
+    let ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  });
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  .timeline-item.active .date-badge {
+    background-color: #016250;
+    color: white;
+    border: 2px solid #016250;
+  }
+
+  .timeline-item.active .timeline-number {
+    background-color: white;
+    color: #016250;
+    transform: scale(1.1);
+  }
+
+  .timeline-item.active .timeline-content {
+    transform: translateX(5px);
+  }
+
+  .timeline-item.active .timeline-desc {
+    border: 2px solid #016250 !important;
+    box-shadow:
+      0 4px 6px -1px rgba(15, 118, 110, 0.1),
+      0 2px 4px -1px rgba(15, 118, 110, 0.06);
+  }
+
+  .timeline-item {
+    transition: all 0.4s ease;
+  }
+
+  .timeline-line {
+    background: linear-gradient(to bottom, #016250, #116057);
+  }
+
+  .timeline-desc {
+    transition: all 0.3s ease;
+  }
+</style>

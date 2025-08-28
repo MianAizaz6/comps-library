@@ -1,0 +1,37 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+export interface Props {
+  id: string;
+  title: string;
+  subtitle: string;
+  mainImage1: ImageMetadata;
+  mainImage2: ImageMetadata;
+  subImage1: ImageMetadata;
+  subImage2: ImageMetadata;
+  subImage3: ImageMetadata;
+  subImage4: ImageMetadata;
+}
+
+const { id, title, subtitle, mainImage1, mainImage2, subImage1, subImage2, subImage3, subImage4 } = Astro.props;
+---
+
+<SectionWrapper id={id}>
+  <div class="py-6 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-8">
+    <h1
+      class="mb-4 text-4xl md:text-5xl lg:text-6xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+      set:html={title}
+    />
+    <p class="font-light text-gray-500 sm:text-lg md:px-20 lg:px-38 xl:px-48 dark:text-gray-400" set:html={subtitle} />
+    <div class="gap-4 mt-8 md:grid md:grid-cols-4 md:mt-12">
+      <Image class="col-span-2 mb-4 md:mb-0 rounded-lg" src={mainImage1} alt="content gallery 1" />
+      <Image class="hidden col-span-1 md:block rounded-lg" src={subImage1} alt="content gallery 2" />
+      <Image class="hidden col-span-1 md:block rounded-lg" src={subImage2} alt="content gallery 3" />
+      <Image class="hidden col-span-1 md:block rounded-lg" src={subImage3} alt="content gallery 4" />
+      <Image class="col-span-2 rounded-lg" src={mainImage2} alt="content gallery 5" />
+      <Image class="hidden col-span-1 md:block rounded-lg" src={subImage4} alt="content gallery 6" />
+    </div>
+  </div>
+</SectionWrapper>;

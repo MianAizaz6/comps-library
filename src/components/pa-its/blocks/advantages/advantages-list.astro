@@ -1,0 +1,79 @@
+---
+import Image from 'astro/components/Image.astro';
+import handShake from '~/assets/images/history/handshake.svg';
+import trending from '~/assets/images/history/trending.svg';
+import badge from '~/assets/images/advantages/badge.svg';
+import team from '~/assets/images/advantages/team.svg';
+import construction from '~/assets/images/advantages/construction.svg';
+import machine from '~/assets/images/advantages/machine.svg';
+import trust from '~/assets/images/advantages/trust.svg';
+import water from '~/assets/images/advantages/water.svg';
+
+const highlights = [
+  {
+    title: 'TÜV-zertifiziertes WHG-Fachwissen seit 2016.',
+    icon: badge,
+  },
+  {
+    title: 'Starkes, eingespieltes Team mit flachen Hierarchien.',
+    icon: team,
+  },
+  {
+    title: 'Regionale Bauprojekte – von Bodensee bis Stuttgart.',
+    icon: construction,
+  },
+  {
+    title: 'Langfristige Perspektive in einem wachsenden Unternehmen.',
+    icon: trending,
+  },
+  {
+    title: 'Moderner Maschinenpark für professionelle Arbeit.',
+    icon: machine,
+  },
+  {
+    title: 'Weiterbildungsmöglichkeiten und individuelle Förderung.',
+    icon: handShake,
+  },
+  {
+    title: 'Verantwortung und Vertrauen ab dem ersten Tag.',
+    icon: trust,
+  },
+  {
+    title: 'Aktiver Beitrag zum Umwelt- und Gewässerschutz.',
+    icon: water,
+  },
+];
+---
+
+<div class="relative md:px-8 py-20 px-4 bg-gray-50">
+  <h1
+    class="mb-4 text-center text-4xl font-heading z-10 font-extrabold leading-none text-gray-900 md:text-5xl lg:text-6xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_50%)] drop-shadow-lg"
+  >
+    Ihre Vorteile als Mitarbeiter
+  </h1>
+  <p
+    class="mb-10 text-center text-lg z-10 font-normal text-gray-900 lg:text-xl sm:px-16 xl:px-48 [text-shadow:_1px_1px_2px_rgb(0_0_0_/_50%)] drop-shadow-md"
+  >
+    Bei Q-MA-Bau investieren wir in unsere Mitarbeiter und bieten ein Arbeitsumfeld, in dem Sie sich entwickeln können.
+  </p>
+  <div class="max-w-[1440px] w-fu mx-auto grid grid-cols-1 z-40 sm:grid-cols-2 lg:grid-cols-4 md:gap-8 gap-4">
+    {
+      highlights.map((item, index) => (
+        <div
+          key={index}
+          class="relative bg-[#042b1edc] border border-[#0A412E] backdrop-blur-md text-white p-6 rounded-xl flex items-center space-x-4 shadow-md "
+        >
+          {/* Icon Circle with Border */}
+          <div>
+            <div class="w-[50px] h-[50px] flex items-center justify-center bg-[#1B4B3A] border border-[#345B4E] rounded-full">
+              <Image src={item.icon} alt={item.title} class={`w-6 h-6`} />
+            </div>
+          </div>
+
+          {/* Title */}
+          <p class="text-sm font-medium">{item.title}</p>
+        </div>
+      ))
+    }
+  </div>
+</div>

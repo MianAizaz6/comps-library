@@ -1,0 +1,77 @@
+---
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+const stats = [
+  {
+    label: 'Abgeschlossene Projekte',
+    target: 100,
+    description: 'Erfolgreich realisierte Bauvorhaben in ganz Süddeutschland.',
+  },
+  {
+    label: 'Zufriedene Kunden',
+    target: 100,
+    description: 'Langfristige Partnerschaften mit Unternehmen & Privatkunden.',
+  },
+  {
+    label: 'Jahre Erfahrung',
+    target: 10,
+    description: 'Fachkompetenz im WHG-Bereich seit der Gründung 2016.',
+  },
+];
+---
+
+<SectionWrapper class="bg-white py-16 px-4">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2
+      class="mb-4 text-center text-4xl font-heading z-10 font-extrabold leading-none dark:text-white text-gray-900 md:text-5xl lg:text-6xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_50%)] drop-shadow-lg"
+    >
+      Unsere Erfolgsbilanz auf einen Blick
+    </h2>
+    <p
+      class="mb-20 text-center text-lg z-10 font-normal dark:text-white text-gray-900 lg:text-xl sm:px-16 xl:px-48 [text-shadow:_1px_1px_2px_rgb(0_0_0_/_50%)] drop-shadow-md"
+    >
+      Mit zahlreichen abgeschlossenen Projekten und zufriedenen Kunden zeigen unsere Zahlen, wofür Q-MA Bau steht:
+      Qualität, Vertrauen und langjährige Erfahrung.
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {
+        stats.map((stat, index) => (
+          <div class="relative bg-[#042b1edc] border border-[#0A412E] backdrop-blur-md text-white p-6 rounded-xl flex flex-col space-x-4 shadow-md">
+            <span
+              class="mb-4 text-center text-6xl font-heading z-10 font-extrabold leading-none text-white md:text-5xl lg:text-6xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_50%)] drop-shadow-lg"
+              id={`counter-${index}`}
+              data-target={stat.target}
+            >
+              0
+            </span>
+            <p class="mt-2 text-2xl font-semibold text-white">{stat.label}</p>
+            <p class="mt-2 text-lg text-white">{stat.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const counters = document.querySelectorAll('[id^="counter-"]');
+      counters.forEach((counter) => {
+        const target = +counter.dataset.target;
+        let count = 0;
+        const speed = Math.ceil(target / 100); // adjust this for smoother/faster count
+
+        const update = () => {
+          if (count < target) {
+            count += speed;
+            counter.textContent = count > target ? target : count;
+            requestAnimationFrame(update);
+          } else {
+            counter.textContent = `${target}+`;
+          }
+        };
+
+        update();
+      });
+    });
+  </script>
+</SectionWrapper>

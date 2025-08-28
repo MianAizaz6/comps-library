@@ -1,0 +1,124 @@
+---
+import { Image } from 'astro:assets';
+import sponser1 from '~/assets/images/sponsers/spon1.jpg';
+import sponser2 from '~/assets/images/sponsers/spon2.jpg';
+import sponser3 from '~/assets/images/sponsers/spon3.jpg';
+import sponser4 from '~/assets/images/sponsers/spon4.jpg';
+import logo from '~/assets/images/sponsers/logo.png';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+const sponsorships = [
+  {
+    name: 'SV Stuttgart 2023',
+    logo: logo,
+    image: sponser1,
+    text: 'Unterstützung durch Außenwerbung auf Sportplätzen – Steigerung der Sichtbarkeit und Förderung des Gemeinschaftsgefühls.',
+  },
+  {
+    name: 'Heuberg Challenge Cup 2024',
+    logo: logo,
+    image: sponser2,
+    text: 'Platin-Sponsor des regionalen Fußballturniers zur Förderung des Teamgeistes und des lokalen Sports.',
+  },
+  {
+    name: 'Bodensee-Rennteam – HTWG Konstanz',
+    logo: logo,
+    image: sponser3,
+    text: 'Unterstützung für Studenten, die Formel-Student-Rennwagen entwickeln, indem Theorie und praktische Ingenieursarbeit miteinander verbunden werden.',
+  },
+
+  {
+    name: 'Umwelttag Bodensee',
+    logo: logo,
+    image: sponser4,
+    text: 'Unterstützung des regionalen Umwelttags rund um den Bodensee.',
+  },
+  {
+    name: 'Jugendfeuerwehr Donau',
+    logo: logo,
+    image: sponser1,
+    text: 'Förderung der Jugendarbeit mit Sicherheitsausrüstung.',
+  },
+];
+---
+
+<SectionWrapper class="bg-gray-100 py-16 px-4 relative">
+  <div class="max-w-7xl mx-auto">
+    <h1
+      class="mb-4 text-center text-2xl font-heading z-10 font-extrabold leading-none dark:text-white text-black md:text-3xl lg:text-5xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_50%)] drop-shadow-lg"
+    >
+      Vertrauen durch Partnerschaft
+    </h1>
+    <p
+      class="mb-10 text-center text-lg z-10 font-normal dark:text-white text-black lg:text-xl sm:px-16 xl:px-48 [text-shadow:_1px_1px_2px_rgb(0_0_0_/_50%)] drop-shadow-md"
+    >
+      Q-MA Bau realisiert Projekte mit namhaften Unternehmen und regionalen Partnern – zuverlässig, qualitätsbewusst und
+      WHG-zertifiziert.
+    </p>
+
+    <div class="relative">
+      <button
+        id="scrollLeft"
+        class="absolute -left-9 top-1/2 -translate-y-1/2 bg-[#04553adc] border border-[#0A412E] backdrop-blur-md shadow p-4 rounded-full z-10 hidden md:block"
+      >
+        <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+            <path d="M15 6L9 12L15 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            ></path>
+          </g></svg
+        >
+      </button>
+      <button
+        id="scrollRight"
+        class="absolute -right-8 top-1/2 -translate-y-1/2 bg-[#04553adc] border border-[#0A412E] backdrop-blur-md shadow p-4 rounded-full z-10 hidden md:block"
+      >
+        <svg width="34px" height="34px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
+          ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+            <path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5l7 7-7 7"
+            ></path>
+          </g></svg
+        >
+      </button>
+
+      <!-- Carousel Container -->
+      <div id="carousel" class="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory pb-4">
+        {
+          sponsorships.map((item) => (
+            <div class="min-w-[240px] md:min-w-[360px] min-h-[350px] w-[240px] flex-shrink-0 bg-white rounded-xl shadow border snap-start">
+              <Image src={item.image} alt={item.name} class="h-52 w-full object-cover rounded-t-xl" />
+              <div class="p-4">
+                <div class="flex items-center gap-3 mb-2">
+                  <Image src={item.logo} alt="Logo" class="h-8 w-auto object-contain" />
+                  <span class="text-lg font-semibold text-gray-800">{item.name}</span>
+                </div>
+                <p class="text-gray-600 text-sm font-medium">{item.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carousel = document.getElementById('carousel');
+      const scrollLeftBtn = document.getElementById('scrollLeft');
+      const scrollRightBtn = document.getElementById('scrollRight');
+
+      scrollLeftBtn?.addEventListener('click', () => {
+        carousel.scrollBy({ left: -350, behavior: 'smooth' });
+      });
+
+      scrollRightBtn?.addEventListener('click', () => {
+        carousel.scrollBy({ left: 350, behavior: 'smooth' });
+      });
+    });
+  </script>
+</SectionWrapper>

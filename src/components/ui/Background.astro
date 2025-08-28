@@ -1,0 +1,18 @@
+---
+import { twMerge } from 'tailwind-merge';
+
+export interface Props {
+  isDark?: boolean;
+  classes?: string;
+}
+
+const { isDark = false, classes } = Astro.props;
+
+const defaultClasses = 'absolute inset-0 bg-gray-0';
+
+const resultClasses = twMerge(defaultClasses, classes, isDark ? 'dark:bg-gray-900' : '');
+---
+
+<div class={resultClasses}>
+  <slot />
+</div>

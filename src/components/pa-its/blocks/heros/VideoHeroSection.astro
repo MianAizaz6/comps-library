@@ -1,0 +1,122 @@
+---
+import { type ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Button, { type Props as ButtonProps } from '~/components/pa-its/Button.astro';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+interface NewFeature {
+  new: string;
+  title: string;
+  href: string;
+}
+
+export interface Props {
+  title: string;
+  subtitle: string;
+  callToActions?: ButtonProps[];
+  newFeature?: NewFeature;
+  videoUrl?: string;
+  videoEmbedId?: string;
+  fallbackImage?: ImageMetadata;
+  primaryCTA?: ButtonProps;
+  secondaryCTA?: ButtonProps;
+}
+
+const { title, subtitle, callToActions, newFeature, videoUrl, videoEmbedId, fallbackImage, primaryCTA, secondaryCTA } =
+  Astro.props;
+---
+
+<SectionWrapper
+  id="hero"
+  containerClass="flex flex-col items-center text-center min-h-[70vh] lg:min-h-[80vh] justify-center"
+>
+  <div class="absolute inset-0 w-full h-full overflow-hidden">
+    {
+      videoEmbedId && (
+        <div class="relative w-full h-full">
+          <iframe
+            class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            src={`https://www.youtube.com/embed/${videoEmbedId}?autoplay=1&mute=1&loop=1&playlist=${videoEmbedId}&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1`}
+            title="Hero Video"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+          <div class="absolute inset-0 bg-black bg-opacity-40" />
+        </div>
+      )
+    }
+    {
+      !videoEmbedId && videoUrl && (
+        <div class="relative w-full h-full">
+          <video
+            class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            autoplay
+            muted
+            loop
+            playsinline
+          >
+            <source src={videoUrl} type="video/mp4" />
+          </video>
+          <div class="absolute inset-0 bg-black bg-opacity-40" />
+        </div>
+      )
+    }
+    {
+      !videoEmbedId && !videoUrl && fallbackImage && (
+        <div class="relative w-full h-full">
+          <Image src={fallbackImage} alt="Hero Background" class="object-cover w-full h-full" />
+          <div class="absolute inset-0 bg-black bg-opacity-60" />
+        </div>
+      )
+    }
+  </div>
+
+  {
+    newFeature && (
+      <a
+        href={newFeature?.href}
+        target="_blank"
+        class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition-all z-10"
+        role="button"
+        aria-label="Neue Funktion!"
+      >
+        <span class="text-xs font-bold bg-primary-600 rounded-full text-white px-4 py-1.5 mr-3">{newFeature?.new}</span>
+        <span class="text-sm font-medium">{newFeature?.title}</span>
+        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fill-rule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </a>
+    )
+  }
+
+  <h1
+    class="mb-4 text-4xl font-heading z-10 font-extrabold leading-none text-white md:text-5xl lg:text-6xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_50%)] drop-shadow-lg"
+    set:html={title}
+  />
+  <h2
+    class="w-5/6 mb-8 text-lg z-10 font-normal text-white lg:text-xl sm:px-16 xl:px-48 [text-shadow:_1px_1px_2px_rgb(0_0_0_/_50%)] drop-shadow-md"
+    set:html={subtitle}
+  />
+
+  <div class="flex flex-col mb-8 z-10 lg:mb-16 sm:flex-row sm:justify-center items-center gap-5">
+    {primaryCTA && <Button {...primaryCTA} />}
+    {secondaryCTA && <Button {...secondaryCTA} />}
+    {callToActions?.map((cta) => <Button {...cta} />)}
+    {
+      (videoEmbedId || videoUrl) && (
+        <Button
+          type="alternative"
+          title="Ganzen Film ansehen"
+          href={videoEmbedId ? `https://www.youtube.com/watch?v=${videoEmbedId}` : videoUrl}
+          openInNewTab={true}
+          overwriteClass="bg-white/90 hover:bg-white text-gray-900 border-0 backdrop-blur-sm"
+        />
+      )
+    }
+  </div>
+</SectionWrapper>

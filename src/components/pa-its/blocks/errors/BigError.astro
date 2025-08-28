@@ -1,0 +1,29 @@
+---
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+
+import { type Props as ButtonProps } from '~/components/ui/Button.astro';
+
+export interface Props {
+  errorCode: string;
+  title: string;
+  description: string;
+  actions: ButtonProps[];
+}
+
+const { errorCode, title, description, actions } = Astro.props;
+---
+
+<SectionWrapper id="not-found">
+  <div class="mx-auto max-w-screen-sm text-center">
+    <h1
+      class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600 dark:text-primary-500"
+      set:html={errorCode}
+    />
+    <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white" set:html={title} />
+    <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400" set:html={description} />
+    <div class="flex flex-col items-center space-y-4 mt-8">
+      {actions.map((action) => <Button {...action} />)}
+    </div>
+  </div>
+</SectionWrapper>

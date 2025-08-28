@@ -1,0 +1,27 @@
+---
+import paLogo from '~/assets/images/pa-its/pa_logo.svg';
+import paLogoDark from '~/assets/images/pa-its/pa_logo_white.svg';
+import { Image } from 'astro:assets';
+
+const year = new Date().getFullYear().toString();
+---
+
+<div class="flex flex-col items-center md:flex-row gap-1 align-center dark:text-gray-200">
+  <span>
+    &copy; {year} All rights reserved.
+  </span>
+  <span class="hidden md:block"> ·</span>
+  <a
+    class="hover:underline dark:text-gray-200 flex gap-2 items-center"
+    href="https://pa-it-solutions.de/"
+    target="_blank"
+  >
+    <span>Made by PA IT Solutions</span>
+    <span class="dark:hidden w-5">
+      <Image src={paLogo} alt="PA IT Solutions" width="60" />
+    </span>
+    <span class="hidden dark:block w-5">
+      <Image src={paLogoDark} alt="PA IT Solutions" width="60" />
+    </span>
+  </a>
+</div>

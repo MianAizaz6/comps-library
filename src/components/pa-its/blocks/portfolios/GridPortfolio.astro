@@ -1,0 +1,82 @@
+---
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+
+import { Image } from 'astro:assets';
+import { type ImageMetadata } from 'astro';
+import ServiceCategoryTag, { type Props as ServiceCategoryTagProps } from '~/components/ui/ServiceCategoryTag.astro';
+
+interface CaseCard {
+  title: string;
+  subtitle: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  darkImage: ImageMetadata;
+  tag: ServiceCategoryTagProps;
+  caseStudyUrl?: string;
+  livePreviewUrl?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  caseCards: CaseCard[];
+}
+
+const { title, subtitle, caseCards } = Astro.props;
+---
+
+<SectionWrapper id="grid-portfolio">
+  <div class="max-w-2xl mx-auto text-center">
+    {
+      title && (
+        <h1
+          class="mb-4 text-4xl font-heading font-extrabold leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+          set:html={title}
+        />
+      )
+    }
+    {
+      subtitle && (
+        <p class="mt-4 text-base font-normal text-gray-500 sm:text-xl dark:text-gray-400" set:html={subtitle} />
+      )
+    }
+  </div>
+
+  <div class="grid grid-cols-1 gap-12 mt-12 sm:gap-8 lg:gap-16 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      caseCards.map((caseCard) => (
+        <div>
+          <Image
+            src={caseCard.image}
+            alt={caseCard.imageAlt}
+            class="object-cover w-full rounded-lg shadow-lg dark:hidden mb-6"
+          />
+          <Image
+            src={caseCard.darkImage}
+            alt={caseCard.imageAlt}
+            class="object-cover w-full rounded-lg shadow-lg hidden dark:block mb-6"
+          />
+          <div class="space-y-3 mb-6">
+            {caseCard.tag && <ServiceCategoryTag {...caseCard.tag} />}
+            <h3 class="text-2xl font-bold leading-tight text-gray-900 dark:text-white" set:html={caseCard.title} />
+            <p class="text-lg font-normal text-gray-500 dark:text-gray-400" set:html={caseCard.subtitle} />
+          </div>
+          <div class="flex items-center gap-4">
+            {caseCard.caseStudyUrl && (
+              <Button href={caseCard.caseStudyUrl} title="Zur Fallstudie" startIcon='material-symbols:info"' />
+            )}
+            {caseCard.livePreviewUrl && (
+              <Button
+                href={caseCard.livePreviewUrl}
+                type="outlined"
+                title="Zum Ergebnis"
+                startIcon="material-symbols:open-in-new"
+              />
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</SectionWrapper>

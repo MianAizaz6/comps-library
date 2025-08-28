@@ -1,0 +1,41 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import Button, { type Props as ButtonProps } from '~/components/pa-its/Button.astro';
+
+export interface Props {
+  id?: string;
+  title: string;
+  descriptions: string[];
+  img1: ImageMetadata;
+  img2: ImageMetadata;
+  ctas?: ButtonProps[];
+}
+
+const { id, title, descriptions, img1, img2, ctas } = Astro.props;
+---
+
+<SectionWrapper id={id} containerClass="py-2">
+  <div class="gap-x-16 items-center py-4 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-8 lg:px-6">
+    <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white" set:html={title} />
+      {descriptions.map((description) => <p class="mb-4 text-md" set:html={description} />)}
+    </div>
+    <div class="grid grid-cols-2 gap-4 mt-8">
+      <Image class="w-full rounded-lg" src={img1} alt={title} />
+      <Image class="mt-4 w-full lg:mt-10 rounded-lg" src={img2} alt={title} />
+    </div>
+    <div class="col-span-2">
+      {
+        ctas && (
+          <div class="flex justify-start mt-2">
+            {ctas.map((cta) => (
+              <Button {...cta} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</SectionWrapper>

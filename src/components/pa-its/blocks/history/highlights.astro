@@ -1,0 +1,44 @@
+---
+import Image from 'astro/components/Image.astro';
+import berifcase from '~/assets/images/history/briefcase.svg';
+import handShake from '~/assets/images/history/handshake.svg';
+import trending from '~/assets/images/history/trending.svg';
+
+const highlights = [
+  {
+    title: 'Long-standing WHG expertise since 2016.',
+    icon: berifcase,
+  },
+  {
+    title: 'Bekannte Kunden. Bewährte Bauleistung.',
+    icon: handShake,
+  },
+  {
+    title: 'Sustainable, innovative & ready for generations.',
+    icon: trending,
+  },
+];
+---
+
+<div class="relative z-10 md:-mt-12 -mt-40 md:px-8 px-4">
+  <div class="max-w-[1200px] w-fu mx-auto grid grid-cols-1 z-40 sm:grid-cols-2 lg:grid-cols-3 md:gap-8 gap-4">
+    {
+      highlights.map((item, index) => (
+        <div
+          key={index}
+          class="relative bg-[#042b1edc] border border-[#0A412E] backdrop-blur-md text-white p-6 rounded-xl flex items-center space-x-4 shadow-md "
+        >
+          {/* Icon Circle with Border */}
+          <div>
+            <div class="w-[60px] h-[60px] flex items-center justify-center bg-[#1B4B3A] border border-[#345B4E] rounded-full">
+              <Image src={item.icon} alt={item.title} class={`w-6 h-6`} />
+            </div>
+          </div>
+
+          {/* Title */}
+          <p class="text-sm font-medium">{item.title}</p>
+        </div>
+      ))
+    }
+  </div>
+</div>

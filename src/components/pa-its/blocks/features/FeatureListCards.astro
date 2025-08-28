@@ -1,0 +1,42 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+export interface Props {
+  id?: string;
+  showHighlight?: boolean;
+  title: string;
+  description: string;
+  features: {
+    title: string;
+    description: string;
+    color: string; // Colors need to be added to safeList in tailwind.config.cjs
+    icon: string;
+  }[];
+}
+
+const { title, description, features, id, showHighlight = false } = Astro.props;
+---
+
+<SectionWrapper id={id ?? 'features'} showHighlight={showHighlight}>
+  <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-16">
+    <h2
+      class="font-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+      set:html={title}
+    />
+    <p class="text-gray-500 dark:text-gray-400 sm:text-xl" set:html={description} />
+  </div>
+  <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-8 xl:gap-8 md:space-y-0">
+    {
+      features.map((feature) => (
+        <div class="p-6 bg-white rounded shadow dark:bg-gray-800">
+          <div class="flex justify-center items-center mb-4 w-10 h-10 rounded bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-800">
+            <Icon name={feature.icon} class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300" />
+          </div>
+          <h3 class="mb-2 text-xl font-bold dark:text-white" set:html={feature.title} />
+          <p class="text-gray-500 dark:text-gray-400" set:html={feature.description} />
+        </div>
+      ))
+    }
+  </div>
+</SectionWrapper>

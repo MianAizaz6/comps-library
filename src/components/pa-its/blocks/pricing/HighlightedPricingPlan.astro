@@ -1,0 +1,193 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+import { type Props as ButtonProps } from '~/components/ui/Button.astro';
+
+interface PricingFeature {
+  title: string;
+  isDisabled?: boolean;
+  icon?: string;
+}
+
+interface PricingCard {
+  isPopular: boolean;
+  showYearlyDescription: boolean;
+  customYearlyDescription?: string;
+  title: string;
+  price: string;
+  yearlyPrice?: string;
+  description: string;
+  button?: ButtonProps;
+  features: PricingFeature[];
+}
+
+export interface Props {
+  id?: string;
+  title: string;
+  subtitle: string;
+  showYearlySwitch: boolean;
+  yearlyDiscount?: string;
+  pricingCards: PricingCard[];
+}
+
+const { title, subtitle, yearlyDiscount, showYearlySwitch, pricingCards, id } = Astro.props;
+---
+
+<SectionWrapper id={id ?? 'pricing'}>
+  <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+    <h2 class="font-heading mb-4 text-4xl font-extrabold text-gray-900 dark:text-white" set:html={title} />
+    <p class="font-heading mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400" set:html={subtitle} />
+    {
+      showYearlySwitch && (
+        <div class="flex justify-center items-center">
+          <span class="labelMonthly text-base font-medium text-gray-900 dark:text-white"> Monatlich </span>
+          <div class="">
+            <label for="toggle-example" class="flex relative items-center mx-4 cursor-pointer">
+              <input type="checkbox" id="toggle-example" class="sr-only priceSwitch " />
+              <div class="w-11 h-6 bg-gray-200 rounded-full border-2 border-gray-200 toggle-bg dark:bg-gray-700 dark:border-gray-700 peer-checked:!bg-primary-500" />
+            </label>
+          </div>
+          <div>
+            <span class="labelYearly text-base font-medium text-gray-500 dark:text-gray-400"> Jährlich </span>
+            {yearlyDiscount && (
+              <span
+                class="labelYearly text-base font-medium text-gray-500 dark:text-gray-400"
+                set:html={yearlyDiscount}
+              />
+            )}
+          </div>
+        </div>
+      )
+    }
+  </div>
+  <div class="grid gap-8 xl:grid-cols-3 xl:gap-10">
+    {
+      pricingCards.map((pricingCard) => {
+        return (
+          <div
+            class={`flex flex-col p-6 mx-auto max-w-xl text-center bg-white rounded-lg border border-gray-200 shadow xl:max-w-lg dark:border-gray-700 dark:bg-gray-800 xl:p-8 ${pricingCard.isPopular ? 'border-primary-500 shadow-xl ' : 'mt-8 shadow-sm'}`}
+          >
+            {pricingCard.isPopular && (
+              <div class="mb-2">
+                <span class="py-1 px-3 text-sm text-primary-800 bg-primary-100 rounded dark:bg-primary-200 dark:text-primary-800">
+                  Am Beliebtesten
+                </span>
+              </div>
+            )}
+            <h3
+              class="font-heading mb-4 text-2xl font-medium text-gray-900 dark:text-white"
+              set:html={pricingCard.title}
+            />
+            <div class="monthlyPrice">
+              <span class=" text-5xl font-extrabold text-gray-900 dark:text-white" set:html={pricingCard.price} />
+              {pricingCard.showYearlyDescription && (
+                <span class="text-xl font-bold text-gray-900 dark:text-white">
+                  {pricingCard.customYearlyDescription ?? '/ Monat'}
+                </span>
+              )}
+            </div>
+            <div class="yearlyPrice hidden">
+              <span class=" text-5xl font-extrabold text-gray-900 dark:text-white" set:html={pricingCard.yearlyPrice} />
+              {pricingCard.showYearlyDescription && (
+                <span class="text-xl font-bold text-gray-900 dark:text-white">
+                  {pricingCard.customYearlyDescription ?? '/ Jahr'}
+                </span>
+              )}
+            </div>
+            <p
+              class="mt-4 mb-1 min-h-14 max-h-14 text-gray-500 text-light dark:text-gray-400"
+              set:html={pricingCard.description}
+            />
+            {/* <a
+        href="#"
+        class="inline-flex justify-center items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700"
+      >
+        Go to annual plan
+        <svg class="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+          ><path
+            fill-rule="evenodd"
+            d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path></svg
+        >
+      </a> */}
+            {pricingCard.button && (
+              <Button
+                startIcon="material-symbols:chat-add-on-outline-rounded"
+                {...pricingCard.button}
+                type={pricingCard.isPopular ? 'default' : 'outlined'}
+              />
+            )}
+            <ul role="list" class="space-y-4 text-left mt-6 text-gray-900 dark:text-gray-400">
+              {pricingCard.features.map((feature) => {
+                return feature.isDisabled ? (
+                  <li class="flex items-center space-x-3 text-gray-500">
+                    <Icon name={feature.icon} class="flex-shrink-0 w-5 h-5" />
+                    <span class="line-through">{feature.title}</span>
+                  </li>
+                ) : (
+                  <li class="flex items-center space-x-3 ">
+                    <Icon name={feature.icon} class="flex-shrink-0 w-5 h-5 text-primary-600" />
+                    <span>{feature.title}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <script is:inline define:vars={{ id }}>
+    const toggleSwitch = document.querySelector(`#${id} .priceSwitch`);
+    const monthlyPrices = document.querySelectorAll(`#${id} .monthlyPrice`);
+    const yearlyPrices = document.querySelectorAll(`#${id} .yearlyPrice`);
+    const labelMonthly = document.querySelector(`#${id} .labelMonthly`);
+    const labelYearly = document.querySelector(`#${id} .labelYearly`);
+
+    const activeLabelClasses = 'text-gray-900';
+    const inactiveLabelClasses = 'text-gray-500';
+    const activeLabelClassDark = 'dark:text-white';
+    const inactiveLabelClassDark = 'dark:text-gray-400';
+
+    let isYearly = false;
+
+    toggleSwitch?.addEventListener('click', () => {
+      console.log('click', isYearly);
+      if (!isYearly) {
+        console.log('show yearly');
+        monthlyPrices.forEach((price) => price.classList.add('hidden'));
+        yearlyPrices.forEach((price) => price.classList.remove('hidden'));
+        labelMonthly.classList.remove(activeLabelClasses);
+        labelMonthly.classList.add(inactiveLabelClasses);
+        labelMonthly.classList.remove(activeLabelClassDark);
+        labelMonthly.classList.add(inactiveLabelClassDark);
+        labelYearly.classList.remove(inactiveLabelClasses);
+        labelYearly.classList.add(activeLabelClasses);
+        labelYearly.classList.remove(inactiveLabelClassDark);
+        labelYearly.classList.add(activeLabelClassDark);
+      } else {
+        console.log('show monthly');
+        monthlyPrices.forEach((price) => price.classList.remove('hidden'));
+        yearlyPrices.forEach((price) => price.classList.add('hidden'));
+        labelMonthly.classList.remove(inactiveLabelClasses);
+        labelMonthly.classList.add(activeLabelClasses);
+        labelMonthly.classList.remove(inactiveLabelClassDark);
+        labelMonthly.classList.add(activeLabelClassDark);
+        labelYearly.classList.remove(activeLabelClasses);
+        labelYearly.classList.add(inactiveLabelClasses);
+        labelYearly.classList.remove(activeLabelClassDark);
+        labelYearly.classList.add(inactiveLabelClassDark);
+      }
+      isYearly = !isYearly;
+    });
+  </script>
+
+  <style is:inline>
+    input:checked + .toggle-bg {
+      background: #2ba84a !important;
+      border-color: #2ba84a !important;
+    }
+  </style>
+</SectionWrapper>

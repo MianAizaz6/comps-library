@@ -1,0 +1,49 @@
+---
+import mission from '~/assets/images/history/mission.svg';
+import vission from '~/assets/images/history/vission.svg';
+import value from '~/assets/images/history/value.svg';
+import { Image } from 'astro:assets';
+
+const coreValues = [
+  {
+    title: 'UNSERE MISSION',
+    description:
+      'Hochwertige Bauleistungen nach WHG-Standard – mit dem Ziel, Wasser und Umwelt zu schützen. Wir realisieren sichere, zertifizierte und nachhaltige Lösungen gemeinsam mit unseren Kunden – von Bodensee bis Stuttgart.',
+    icon: mission,
+  },
+  {
+    title: 'UNSERE VISION',
+    description:
+      'Der führende Spezialist für Tiefbau und WHG-Facharbeiten in Süddeutschland zu sein – mit technischer Präzision, moderner Umsetzung und zukunftsorientierter Führung in der nächsten Generation.',
+    icon: vission,
+  },
+  {
+    title: 'UNSERE WERTE',
+    description:
+      'Wir stehen für Fachkompetenz, zertifizierte Qualität und partnerschaftliches Handeln. Unsere Projekte basieren auf Verantwortung, Transparenz und einem klaren Blick in die Zukunft – gemeinsam mit der nächsten Generation.',
+    icon: value,
+  },
+];
+---
+
+<section class="py-16 px-4">
+  <div class="max-w-[1200px] mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+      Das <span class="text-primary">Herzstück</span> von Q-MA-Bau
+    </h2>
+
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      {
+        coreValues.map((item, index) => (
+          <div key={index} class="bg-white p-10 rounded-xl shadow-md flex flex-col items-center text-center">
+            <Image src={item.icon} loading="lazy" alt={item.title} class="w-[130px] h-[130px]" />
+
+            <h3 class="mt-4 text-lg font-semibold text-gray-900">{item.title}</h3>
+            <div class="mt-4 w-32 h-[1px] bg-[#DFDFDF]" />
+            <p class=" text-gray-600 text-[15px] leading-[20px] mt-5">{item.description}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,102 @@
+---
+import { Icon } from 'astro-icon/components';
+import { twMerge } from 'tailwind-merge';
+
+const XS_SIZE = 'p-2 text-xs';
+const SM_SIZE = 'p-2 text-sm';
+const MD_SIZE = 'p-2.5 text-md';
+const LG_SIZE = 'p-3 text-lg';
+const XL_SIZE = 'p-3.5 text-xl';
+
+const XS_ICON_SIZE = 16;
+const SM_ICON_SIZE = 16;
+const MD_ICON_SIZE = 20;
+const LG_ICON_SIZE = 20;
+const XL_ICON_SIZE = 24;
+
+const DEFAULT_CLASSES =
+  'text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800';
+
+const OUTLINED_CLASSES =
+  'text-primary-700 border border-primary-700 hover:bg-primary-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center dark:border-primary-500 dark:text-primary-500 dark:hover:text-white dark:focus:ring-primary-800 dark:hover:bg-primary-500';
+
+const ALTERNATIVE_CLASSES =
+  'text-gray-900 bg-transparent hover:bg-gray-100 hover:text-primary-700 focus:z-10 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700';
+
+const getClassesBySize = (size: string) => {
+  switch (size) {
+    case 'xs':
+      return XS_SIZE;
+    case 'sm':
+      return SM_SIZE;
+    case 'md':
+      return MD_SIZE;
+    case 'lg':
+      return LG_SIZE;
+    case 'xl':
+      return XL_SIZE;
+    default:
+      return MD_SIZE;
+  }
+};
+
+const getIconSizeBySize = (size: string) => {
+  switch (size) {
+    case 'xs':
+      return XS_ICON_SIZE;
+    case 'sm':
+      return SM_ICON_SIZE;
+    case 'md':
+      return MD_ICON_SIZE;
+    case 'lg':
+      return LG_ICON_SIZE;
+    case 'xl':
+      return XL_ICON_SIZE;
+    default:
+      return MD_ICON_SIZE;
+  }
+};
+
+const getClassesByType = (type: string) => {
+  switch (type) {
+    case 'default':
+      return DEFAULT_CLASSES;
+    case 'outlined':
+      return OUTLINED_CLASSES;
+    case 'alternative':
+      return ALTERNATIVE_CLASSES;
+    default:
+      return DEFAULT_CLASSES;
+  }
+};
+
+export interface Props {
+  id?: string;
+  type?: 'default' | 'outlined' | 'alternative';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  href?: string;
+  icon: string;
+  rounded?: boolean;
+  disabled?: boolean;
+  submit?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rest?: any;
+}
+
+const { id, type = 'default', size = 'md', href, icon, rounded = false, disabled = false, submit, rest } = Astro.props;
+
+const disabledClasses = disabled ? 'cursor-not-allowed opacity-50' : '';
+const roundedClasses = rounded ? 'rounded-full' : '';
+---
+
+<a href={href}>
+  <button
+    id={id}
+    type={submit ? 'submit' : 'button'}
+    class={twMerge(getClassesByType(type), getClassesBySize(size), disabledClasses, roundedClasses)}
+    disabled={disabled}
+    {...rest}
+  >
+    <Icon size={getIconSizeBySize(size)} name={icon} class="w-5 h-5" />
+  </button>
+</a>

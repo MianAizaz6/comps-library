@@ -1,0 +1,51 @@
+---
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import { Icon } from 'astro-icon/components';
+
+interface Service {
+  title: string;
+  href: string;
+  icon: string;
+  color: string;
+}
+
+export interface Props {
+  title: string;
+  description: string;
+  services: Service[];
+}
+
+const { title, description, services } = Astro.props;
+---
+
+<SectionWrapper id="service-overview">
+  <div class="mx-auto max-w-screen-sm text-center">
+    <div class="max-w-2xl mx-auto text-center">
+      <h1
+        class="mb-4 text-4xl font-heading font-extrabold leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+        set:html={title}
+      />
+      <p class="mt-4 text-base font-normal text-gray-500 sm:text-xl dark:text-gray-400" set:html={description} />
+    </div>
+  </div>
+  <div class="flex flex-wrap justify-center gap-4 mt-8 lg:mt-12 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5">
+    {
+      services.map((service) => (
+        <a
+          href={service.href}
+          class={`p-6 text-center w-full md:w-fit bg-white rounded-lg border-2  hover:border-${service.color}-200 shadow-md dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-gray-700 hover:shadow-lg min-w-52 transition-all hover:shadow-${service.color} hover:text-${service.color}-500 text-gray-500 dark:text-gray-400`}
+        >
+          <div
+            class={`flex justify-center items-center mx-auto mb-4 w-10 h-10 rounded-lg bg-${service.color}-100 dark:bg-${service.color}-800 lg:h-12 lg:w-12`}
+          >
+            <Icon
+              name={service.icon}
+              class={`w-5 h-5 text-${service.color}-600 dark:text-${service.color}-300 lg:w-6 lg:h-6`}
+            />
+          </div>
+          <h3 class={`mb-2 text-lg font-semibold tracking-tight  transition-all`} set:html={service.title} />
+        </a>
+      ))
+    }
+  </div>
+</SectionWrapper>

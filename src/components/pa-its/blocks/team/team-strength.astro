@@ -1,0 +1,76 @@
+---
+const teamStrengthsData = {
+  title: 'Ein starkes Team für anspruchsvolle Aufgaben',
+  description:
+    'Hinter jedem erfolgreich umgesetzten Projekt steht ein erfahrenes und engagiertes Team. Unsere Mitarbeiterinnen und Mitarbeiter bringen nicht nur Fachwissen und handwerkliches Können mit – sondern auch den Willen, täglich verlässliche Arbeit auf hohem Niveau zu leisten. Egal ob auf der Baustelle oder im Büro – bei Q-MA Bau ziehen alle an einem Strang, um Kundenprojekte zuverlässig, fachgerecht und erfolgreich umzusetzen.',
+  features: [
+    {
+      title: 'Fachkompetenz',
+      color: 'blue',
+      icon: 'tabler:school',
+      items: [
+        { icon: 'tabler:check', text: 'WHG-zertifizierte Fachkräfte' },
+        { icon: 'tabler:check', text: 'Regelmäßige Schulungen und Weiterbildungen' },
+        { icon: 'tabler:check', text: 'Langjährige Berufserfahrung' },
+        { icon: 'tabler:check', text: 'Spezialisierung auf verschiedene Fachbereiche' },
+      ],
+    },
+    {
+      title: 'Teamgeist',
+      color: 'green',
+      icon: 'tabler:users',
+      items: [
+        { icon: 'tabler:check', text: 'Starker Zusammenhalt im Team' },
+        { icon: 'tabler:check', text: 'Gegenseitige Unterstützung und Hilfsbereitschaft' },
+        { icon: 'tabler:check', text: 'Offene Kommunikation und Feedback-Kultur' },
+        { icon: 'tabler:check', text: 'Gemeinsame Ziele und Werte' },
+      ],
+    },
+    {
+      title: 'Sicherheit',
+      color: 'red',
+      icon: 'tabler:shield',
+      items: [
+        { icon: 'tabler:check', text: 'Höchste Sicherheitsstandards' },
+        { icon: 'tabler:check', text: 'Regelmäßige Erste-Hilfe-Schulungen' },
+        { icon: 'tabler:check', text: 'Moderne Sicherheitsausrüstung' },
+        { icon: 'tabler:check', text: 'Unfallfreies Arbeiten als oberstes Ziel' },
+      ],
+    },
+  ],
+};
+---
+
+<section class="bg-white py-20 px-4">
+  <div class="max-w-6xl mx-auto text-center mb-16">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
+      {teamStrengthsData.title}
+    </h2>
+    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+      {teamStrengthsData.description}
+    </p>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    {
+      teamStrengthsData.features.map((feature) => (
+        <div class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 p-8 border border-gray-100 flex flex-col gap-6">
+          <div class="flex items-center gap-4">
+            <div class={`bg-${feature.color}-100 text-${feature.color}-600 rounded-full p-3`}>
+              <i class={`tabler ${feature.icon} text-2xl`} />
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">{feature.title}</h3>
+          </div>
+          <ul class="space-y-4">
+            {feature.items.map((item) => (
+              <li class="flex items-start gap-3 text-gray-700">
+                <i class={`tabler ${item.icon} text-green-600 text-xl mt-[2px]`} />
+                <span class="leading-snug">{item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>

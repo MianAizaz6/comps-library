@@ -1,0 +1,22 @@
+---
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
+import '~/assets/styles/ccElegantBlack.css';
+
+// <button
+//   type="button"
+//   data-cc="show-preferencesModal"
+//   class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2"
+// >
+//   Cookie Einstellungen
+// </button>;
+---
+
+<script>
+  import { run } from 'vanilla-cookieconsent';
+  import { config } from '~/utils/cookie-consent-config';
+
+  // toggle custom black theme
+  document.body.classList.add('cc--elegant-black');
+
+  run(config);
+</script>

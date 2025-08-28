@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import logo from '~/assets/images/references/logo.png';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+const logos = [{ url: logo }, { url: logo }, { url: logo }, { url: logo }, { url: logo }, { url: logo }];
+---
+
+<SectionWrapper class="bg-gray-50 py-12 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="">
+      <h1
+        class="mb-4 text-center text-2xl font-heading z-10 font-extrabold leading-none text-white md:text-3xl lg:text-5xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_50%)] drop-shadow-lg"
+      >
+        Zufriedene Kunden sind unsere beste Referenz
+      </h1>
+      <p
+        class="mb-10 text-center text-lg z-10 font-normal text-white lg:text-xl sm:px-16 xl:px-48 [text-shadow:_1px_1px_2px_rgb(0_0_0_/_50%)] drop-shadow-md"
+      >
+        Wir sind stolz darauf, mit namhaften Unternehmen und privaten Bauherren erfolgreich zusammenzuarbeiten – für
+        Projekte, die Vertrauen und Qualität beweisen.
+      </p>
+      <div class="flex gap-5">
+        {
+          logos.map((logo) => (
+            <div class="flex justify-center max-w-[1240px] overflow-x-scroll w-full">
+              <div class="bg-white rounded-xl shadow border p-4 w-48 h-32 flex items-center justify-center">
+                <Image src={logo.url} alt="Client Logo" class="w-full h-full object-contain" />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</SectionWrapper>

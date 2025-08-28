@@ -1,0 +1,44 @@
+---
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  title: string;
+  description: string;
+  threeTiles?: boolean;
+  features: {
+    title: string;
+    description?: string;
+    color: string;
+    icon: string;
+    items: { text: string }[];
+  }[];
+}
+
+const { title, description, features, threeTiles } = Astro.props;
+---
+
+<SectionWrapper id="features" showHighlight={true}>
+  <div class="max-w-screen flex flex-col items-center mb-8 lg:mb-8">
+    <h2
+      class="font-heading mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
+      set:html={title}
+    />
+    <p class="font-light text-gray-500 dark:text-gray-400 sm:text-xl" set:html={description} />
+  </div>
+  <div
+    class={`grid gap-6 ${threeTiles ? 'md:grid-cols-3 lg:grid-cols-3 ' : 'md:grid-cols-4  lg:grid-cols-4'}  md:px-16 px-6 py-6`}
+  >
+    {
+      features.map((item) => (
+        <div class="bg-gray-50 border rounded-lg p-6 hover:scale-105 shadow-[0_4px_6px_-1px_rgba(3,97,80,0.3)] transition-all delay-75   hover:shadow-[0_6px_12px_-2px_rgba(3,97,80,0.4)]">
+          <div class="text-4xl text-black mb-4">
+            <Icon name={item.icon} />
+          </div>
+          <h3 class="text-lg font-semibold mb-2 dark:text-primary">{item.title}</h3>
+          <p class="text-gray-600 text-sm">{item.description}</p>
+        </div>
+      ))
+    }
+  </div>
+</SectionWrapper>

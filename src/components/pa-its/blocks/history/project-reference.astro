@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import SideImg from '~/assets/images/history/project.jpg';
+---
+
+<section class="bg-gray-100 py-16 px-4">
+  <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <!-- Text Section -->
+    <div class="space-y-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Referenzprojekte & Kunden</h2>
+      <p class="text-lg text-gray-700 leading-relaxed">
+        Zu unseren größten Projekten gehört die ECO-Tankstelle in Meßkirch direkt an der B311. Weitere erfolgreiche
+        Neubauprojekte sowie eine breite Kundenbasis belegen unsere Kompetenz – darunter bekannte Unternehmen wie JET
+        Tankstellen Deutschland GmbH, Mercedes-Benz AG, Diehl Defence GmbH und Leonhard Weiss GmbH.
+      </p>
+    </div>
+
+    <!-- Image Section -->
+    <div class="overflow-hidden rounded-xl shadow-md">
+      <Image src={SideImg} alt="Referenzprojekt: ECO-Tankstelle in Meßkirch" class="w-full h-auto object-cover" />
+    </div>
+  </div>
+</section>

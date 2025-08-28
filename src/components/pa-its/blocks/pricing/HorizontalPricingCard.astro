@@ -1,0 +1,67 @@
+---
+import { Icon } from 'astro-icon/components';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+import { type Props as ButtonProps } from '~/components/ui/Button.astro';
+
+export interface Props {
+  id?: string;
+  showHighlight?: boolean;
+  priceHeadline?: string;
+  title: string;
+  subtitle: string;
+  price: string;
+  priceDescription: string;
+  button: ButtonProps;
+  features: {
+    title: string;
+    icon: string;
+  }[];
+}
+
+const {
+  title,
+  subtitle,
+  priceHeadline,
+  price,
+  priceDescription,
+  button,
+  features,
+  id,
+  showHighlight = false,
+} = Astro.props;
+---
+
+<SectionWrapper id={id ?? 'horizontal-pricing'} showHighlight={showHighlight}>
+  <div class="bg-white rounded-lg shadow lg:grid lg:grid-cols-3 dark:bg-gray-800">
+    <div class="col-span-2 p-6 lg:p-8">
+      <h2 class="font-heading mb-1 text-2xl font-bold text-gray-900 dark:text-white" set:html={title} />
+      <p class="font-heading text-lg font-light text-gray-500 dark:text-gray-400" set:html={subtitle} />
+      <div class="grid gap-4 mt-4 lg:mt-6 sm:grid-cols-1 md:grid-cols-2">
+        <ul role="list" class="space-y-4 dark:text-white">
+          {
+            features.map(({ title, icon }) => (
+              <li class="flex space-x-2.5">
+                <Icon name={icon} class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" />
+
+                <span class="leading-tight text-gray-500 dark:text-gray-400" set:html={title} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="flex p-6 text-center bg-gray-100 lg:p-8 dark:bg-gray-700">
+      <div class="self-center w-full">
+        {
+          priceHeadline && (
+            <div class="font-heading mb-1 text-2xl text-gray-500 dark:text-gray-400" set:html={priceHeadline} />
+          )
+        }
+        <div class="font-heading text-5xl font-extrabold text-gray-900 dark:text-white" set:html={price} />
+        <div class="font-heading mt-3 mb-4 text-gray-500 text-light dark:text-gray-400" set:html={priceDescription} />
+        <Button {...button} />
+      </div>
+    </div>
+  </div>
+</SectionWrapper>

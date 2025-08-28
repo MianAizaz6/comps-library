@@ -1,0 +1,84 @@
+---
+import { defaultLocale } from 'astro.config';
+import { getLocale } from 'astro-i18n-aut';
+import { getLanguageData } from '~/utils/i18n';
+import { languages } from '~/utils/i18n';
+
+import '/node_modules/flag-icons/css/flag-icons.min.css';
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  variant?: 'default' | 'icon' | 'flag';
+}
+
+const { variant = 'default' } = Astro.props;
+
+const currentLanguage = getLocale(Astro.url);
+const currentLanguageData = getLanguageData(currentLanguage);
+---
+
+{
+  variant === 'flag' ? (
+    <button
+      type="button"
+      data-dropdown-toggle="language-dropdown-menu"
+      class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+    >
+      <span class={`fi fi-${currentLanguageData.flagCode}`} />
+    </button>
+  ) : variant === 'icon' ? (
+    <button
+      type="button"
+      data-dropdown-toggle="language-dropdown-menu"
+      class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
+    >
+      <Icon name="tabler:world" class="w-5 h-5" />
+    </button>
+  ) : (
+    <button
+      type="button"
+      data-dropdown-toggle="language-dropdown-menu"
+      class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+    >
+      {currentLanguageData.name}
+    </button>
+  )
+}
+<div
+  class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
+  id="language-dropdown-menu"
+>
+  <ul class="py-2 font-medium" role="none">
+    {
+      languages.map((lang) => {
+        const isActive = lang.code === currentLanguage;
+        const goingBackToDefaultLanguage = lang.code === defaultLocale;
+        const pathWithoutLanguage = Astro.url.pathname.replace(`/${currentLanguage}`, '');
+        const href = isActive
+          ? `${Astro.url.pathname}`
+          : goingBackToDefaultLanguage
+            ? `${pathWithoutLanguage}`
+            : `/${lang.code}${Astro.url.pathname}`;
+
+        return (
+          <li>
+            <a
+              id={`language-${lang}`}
+              href={href}
+              class:list={[
+                `block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white`,
+                { 'bg-gray-100 dark:bg-gray-600 dark:text-white': isActive },
+              ]}
+              role="menuitem"
+            >
+              <div class="inline-flex items-center gap-1">
+                <span class={`fi fi-${lang.flagCode}`} />
+                {lang.name}
+              </div>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>

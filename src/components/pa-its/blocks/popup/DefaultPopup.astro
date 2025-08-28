@@ -1,0 +1,53 @@
+---
+import Button from '~/components/pa-its/Button.astro';
+import IconButton from '~/components/pa-its/IconButton.astro';
+
+export interface Props {
+  id: string;
+  title: string;
+  description: string;
+  showCloseButton?: boolean;
+  submitText?: string;
+  cancelText?: string;
+}
+
+const { id, title, description, submitText, cancelText, showCloseButton = true } = Astro.props;
+---
+
+<div
+  id={id}
+  tabindex="-1"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+  <div class="relative p-4 w-full max-w-2xl max-h-full">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div
+        class="absolute top-3 end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+      >
+        {
+          showCloseButton && (
+            <IconButton
+              rounded
+              type="alternative"
+              id={`iconCloseButtonFrom${id}`}
+              icon="material-symbols:close-rounded"
+              size="xl"
+            />
+          )
+        }
+      </div>
+      <div class="p-5 md:p-8 text-center">
+        <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+          <h3 class="mb-3 mt-7 text-2xl font-bold text-gray-900 dark:text-white" set:html={title} />
+          <slot name="beforeDescription" />
+          <p set:html={description} />
+          <slot name="afterDescription" />
+        </div>
+        <div class="justify-end items-center pt-0 space-y-4 sm:flex sm:space-y-0">
+          {cancelText && <Button id={`cancelButtonFrom${id}`} title={cancelText} type="outlined" />}
+          {submitText && <Button id={`submitButtonFrom${id}`} title={submitText} />}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

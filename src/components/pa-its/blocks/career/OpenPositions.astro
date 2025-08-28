@@ -1,0 +1,61 @@
+---
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+interface Position {
+  title: string;
+  description: string;
+  elevated?: boolean;
+  link: string;
+}
+
+export interface Props {
+  id: string;
+  title: string;
+  subtitle: string;
+  positions: Position[];
+}
+
+const { id, title, subtitle, positions } = Astro.props;
+---
+
+<SectionWrapper id={id}>
+  <div class="lg:py-24 md:py-16 py-10 bg-slate-50 xl:px-0 px-10">
+    <h2
+      class="text-gray-900 text-center font-manrope lg:text-4xl text-3xl font-bold leading-10 mb-14"
+      set:html={title}
+    />
+    <p
+      class="text-gray-700 text-center font-manrope lg:text-lg text-base font-normal leading-7 mb-14"
+      set:html={subtitle}
+    />
+
+    <div
+      class="flex flex-col px-10 lg:max-w-4xl md:max-w2xl sm:max-w-md max-w-sm mx-auto border border-slate-200 bg-white rounded-2xl"
+    >
+      {
+        positions.map((position, index) => (
+          <div
+            class:list={[
+              'grid grid-cols-6 md:justify-between md:items-center py-4 gap-2 md:gap-0 ',
+              { 'border-b border-gray-200': index !== positions.length - 1 },
+            ]}
+          >
+            <div class="col-span-6 md:col-span-5 flex flex-col items-baseline">
+              <h3
+                class:list={[
+                  'text-gray-900 text-xl font-medium leading-8',
+                  { 'text-secondary-500': position.elevated },
+                ]}
+                set:html={position.title}
+              />
+              <span class="text-gray-500 text-sm font-normal leading-6">{position.description}</span>
+            </div>
+            <button class="col-span-6 md:col-span-1 w-20 h-9 rounded-full bg-primary-50 hover:bg-primary-300 hover:text-white transition-all duration-300 text-primary-600 text-xs font-semibold leading-4">
+              Bewerben
+            </button>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</SectionWrapper>

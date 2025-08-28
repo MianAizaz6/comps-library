@@ -1,0 +1,102 @@
+---
+import { footerData } from '~/navigation';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import FooterNote from './FooterNote.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { useTranslations } from '~/utils/i18n';
+import { getLocale } from 'astro-i18n-aut';
+import defaultLogo from '~/assets/images/logo.png';
+import darkLogo from '~/assets/images/logo-dark.svg';
+
+const lang = getLocale(Astro.url);
+const t = useTranslations(lang);
+---
+
+<footer class="bg-gray-50 dark:bg-gray-900">
+  <div class="p-4 py-6 mx-auto max-w-screen-xl md:p-8 lg:-10">
+    <div class="grid grid-cols-2 gap-8 lg:grid-cols-6">
+      <div class="col-span-2">
+        <a
+          href={getPermalink('/')}
+          class="flex items-center mb-2 text-2xl font-semibold text-gray-900 sm:mb-0 dark:text-white"
+        >
+          <Image src={defaultLogo} alt="PA IT Solutions" class="w-auto h-12 dark:hidden" />
+          <Image src={darkLogo} alt="PA IT Solutions" class="w-auto h-12 hidden dark:block" />
+        </a>
+        <p class="my-4 font-light text-gray-500 dark:text-gray-400">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
+        </p>
+        <ul class="flex mt-5 space-x-6">
+          {
+            footerData.socialLinks?.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+                  aria-label={link.ariaLabel}
+                >
+                  <Icon name={link.icon} class="w-5 h-5" />
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <button
+              class="text-gray-500 hover:text-gray-900 dark:hover:text-white dark:text-gray-400"
+              data-cc="show-preferencesModal"
+              aria-label="Cookie-Einstellungen"
+            >
+              <Icon name="material-symbols:cookie-rounded" class="w-5 h-5" />
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="lg:mx-auto">
+        <h2 class="mb-5 text-sm font-semibold text-gray-900 uppercase dark:text-white">Seiten</h2>
+        <ul class="text-gray-500 dark:text-gray-400">
+          {
+            footerData.links?.map((item) => (
+              <li class="mb-4">
+                <a href={item.href} class="hover:underline">
+                  {t(item.text ?? '')}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="lg:mx-auto">
+        <h2 class="mb-5 text-sm font-semibold text-gray-900 uppercase dark:text-white">Rechtliches</h2>
+        <ul class="text-gray-500 dark:text-gray-400">
+          {
+            footerData.secondaryLinks?.map((item) => (
+              <li class="mb-4">
+                <a href={item.href} class="hover:underline">
+                  {t(item.text ?? '')}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="lg:mx-auto">
+        <h2 class="mb-5 text-sm font-semibold text-gray-900 uppercase dark:text-white">Social Media</h2>
+        <ul class="text-gray-500 dark:text-gray-400">
+          {
+            footerData.socialLinks?.map((item) => (
+              <li class="mb-4">
+                <a href={item.href} class="hover:underline">
+                  {item.ariaLabel}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <FooterNote />
+  </div>
+</footer>

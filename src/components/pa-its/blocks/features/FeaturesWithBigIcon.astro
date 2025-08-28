@@ -1,0 +1,47 @@
+---
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+
+import { type Props as ButtonProps } from '~/components/ui/Button.astro';
+
+export interface Props {
+  id?: string;
+  showHighlight?: boolean;
+  title: string;
+  subtitle: string;
+  features: {
+    title: string;
+    description: string;
+    icon: string;
+    color: string; // Colors need to be added to safeList in tailwind.config.cjs
+  }[];
+  button: ButtonProps;
+}
+
+const { title, subtitle, features, button, id, showHighlight = false } = Astro.props;
+---
+
+<SectionWrapper id={id ?? 'additional-features'} containerClass="text-center" showHighlight={showHighlight}>
+  <h2 class="font-heading mb-4 text-4xl font-extrabold text-gray-900 dark:text-white" set:html={title} />
+  <p class="font-heading text-gray-500 sm:text-xl dark:text-gray-400 lg:px-48" set:html={subtitle} />
+  <div class="mt-8 lg:mt-16 mb-8 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
+    {
+      features.map((feature) => (
+        <div>
+          <div
+            class={`inline-flex justify-center items-center mb-6 w-24 h-24 rounded-lg bg-${feature.color}-100 dark:bg-${feature.color}-900`}
+          >
+            <Icon name={feature.icon} class={`w-16 h-16 text-${feature.color}-600 dark:text-${feature.color}-500`} />
+          </div>
+
+          <h3 class="mb-4 text-2xl font-bold dark:text-white" set:html={feature.title} />
+          <p class="mb-4 text-gray-500 dark:text-gray-400" set:html={feature.description} />
+        </div>
+      ))
+    }
+  </div>
+  <p class="w-full flex justify-center items-center">
+    <Button {...button} />
+  </p>
+</SectionWrapper>

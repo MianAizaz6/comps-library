@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button, { type Props as ButtonProps } from '~/components/pa-its/Button.astro';
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+interface Category {
+  icon: string;
+  label: string;
+  link?: string;
+}
+
+export interface Props {
+  id?: string;
+  title: string;
+  cta?: ButtonProps;
+  categories: Category[];
+}
+
+const { id, title, cta, categories } = Astro.props;
+---
+
+<SectionWrapper id={id}>
+  <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <div
+      class="mb-4 items-center justify-between border-gray-200 pb-4 text-gray-900 dark:border-gray-700 md:mb-8 md:flex md:border-b md:pb-8"
+    >
+      <h2
+        class="text-center text-xl font-semibold text-gray-900 dark:text-white sm:mb-0 sm:text-2xl"
+        set:html={title}
+      />
+      {cta && <Button {...cta} />}
+    </div>
+
+    <div class="mb-8 grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8 md:mb-0 md:grid-cols-4 lg:grid-cols-6">
+      {
+        categories.map((category) => (
+          <a href={category.link} class="hover group text-center">
+            <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-900 group-hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white group-hover:dark:bg-gray-700">
+              <Icon name={category.icon} class="h-8 w-8" />
+            </div>
+            <p class="text-sm font-semibold text-gray-900 dark:text-white">{category.label}</p>
+          </a>
+        ))
+      }
+    </div>
+
+    {cta && <Button {...cta} />}
+  </div>
+</SectionWrapper>

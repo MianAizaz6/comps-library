@@ -1,0 +1,143 @@
+---
+import { Image } from 'astro:assets';
+import chrismas1 from '~/assets/images/chrismas/1.jpg';
+import chrismas2 from '~/assets/images/chrismas/2.jpg';
+import chrismas3 from '~/assets/images/chrismas/3.jpg';
+import chrismas4 from '~/assets/images/chrismas/4.jpg';
+import chrismas5 from '~/assets/images/chrismas/5.jpg';
+import chrismas6 from '~/assets/images/chrismas/6.jpg';
+import chrismas7 from '~/assets/images/chrismas/7.jpg';
+
+import SectionWrapper from '~/layouts/SectionWrapper.astro';
+
+const chrismasGallery = [
+  {
+    name: 'Weihnachtsfeier 2023',
+    image: chrismas1,
+    text: 'Festliche Stimmung und gemütliches Beisammensein bei der Q-MA Bau Weihnachtsfeier.',
+  },
+  {
+    name: 'Mitarbeitergeschenke',
+    image: chrismas2,
+    text: 'Überraschungspakete für das gesamte Team als Dankeschön für das erfolgreiche Jahr.',
+  },
+  {
+    name: 'Weihnachtsmarkt-Besuch',
+    image: chrismas3,
+    text: 'Gemeinsamer Ausflug zum lokalen Weihnachtsmarkt mit Glühwein und Leckereien.',
+  },
+  {
+    name: 'Dekoration im Büro',
+    image: chrismas4,
+    text: 'Festliche Dekoration bringt weihnachtliche Atmosphäre in alle Abteilungen.',
+  },
+  {
+    name: 'Nikolaus-Aktion für Kinder',
+    image: chrismas5,
+    text: 'Der Nikolaus besucht die Kinder der Mitarbeitenden mit kleinen Geschenken.',
+  },
+  {
+    name: 'Weihnachtliches Team-Dinner',
+    image: chrismas6,
+    text: 'Ein festliches Abendessen stärkt den Teamgeist vor den Feiertagen.',
+  },
+  {
+    name: 'Spendenaktion zu Weihnachten',
+    image: chrismas7,
+    text: 'Q-MA Bau unterstützt soziale Einrichtungen in der Region mit einer Weihnachtsspende.',
+  },
+];
+---
+
+<SectionWrapper class="bg-gray-100 py-16 px-4 relative">
+  <div class="max-w-7xl mx-auto">
+    <h1
+      class="mb-4 text-center text-2xl font-heading z-10 font-extrabold leading-none dark:text-white text-black md:text-3xl lg:text-4xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_50%)] drop-shadow-lg"
+    >
+      <!-- Ein erfolgreiches Jahr gemeinsam feiern -->
+      Weihnachtsfeier 2024 – Ein gemütlicher Jahresausklang in der Krone
+    </h1>
+    <p
+      class="mb-10 text-center text-lg z-10 font-normal dark:text-white text-black lg:text-xl sm:px-16 xl:px-48 [text-shadow:_1px_1px_2px_rgb(0_0_0_/_50%)] drop-shadow-md"
+    >
+      Am 14. Dezember 2024 fand unsere traditionelle Weihnachtsfeier statt. Dieses Jahr waren wir im Gasthaus Krone in
+      Mühlheim zu Gast um das Jahr gemeinsam ausklingen zu lassen – wie immer in gemütlicher Runde und mit bester
+      Stimmung. Bei leckerem Essen, guten Gesprächen und dem einen oder anderen kühlen oder warmen Getränk ließen wir
+      das Jahr gemeinsam Revue passieren. Mit einer Bilderpräsentation der über 60 erfolgreich absolvierten Baustellen
+      gab es viele interessante und lustige Geschichten zu den Bildern zu erzählen. Auch für private und nicht
+      Arbeitsbezogene Themen gab es genügend Möglichkeiten um sich auszutauschen und das Jahresende in entspannter
+      Atmosphäre einzuläuten sowie das geleistete zu würdigen. Ein herzliches Dankeschön an das gesamte Team für die
+      geleistete Arbeit und Euren Einsatz das ganze Jahr über!
+    </p>
+
+    <div class="relative">
+      <button
+        id="scrollLeft"
+        class="absolute -left-9 top-1/2 -translate-y-1/2 bg-[#04553adc] border border-[#0A412E] backdrop-blur-md shadow p-4 rounded-full z-10 hidden md:block"
+      >
+        <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+            <path d="M15 6L9 12L15 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            ></path>
+          </g></svg
+        >
+      </button>
+      <button
+        id="scrollRight"
+        class="absolute -right-8 top-1/2 -translate-y-1/2 bg-[#04553adc] border border-[#0A412E] backdrop-blur-md shadow p-4 rounded-full z-10 hidden md:block"
+      >
+        <svg width="34px" height="34px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
+          ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+            <path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5l7 7-7 7"
+            ></path>
+          </g></svg
+        >
+      </button>
+
+      <!-- Carousel Container -->
+      <div id="carousel" class="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory pb-4">
+        {
+          chrismasGallery.map((item) => (
+            <div class="relative min-w-[240px] md:min-w-[360px] h-[350px] w-[240px] flex-shrink-0 rounded-xl overflow-hidden snap-start group">
+              <Image
+                src={item.image}
+                alt={item.name}
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+
+              <div class="absolute inset-0 bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                <div class="flex items-center gap-2 mb-2">
+                  {/* <Image src={item.logo} alt="Logo" class="h-6 w-auto object-contain" /> */}
+                  <span class="text-base font-semibold">{item.name}</span>
+                </div>
+                <p class="text-sm">{item.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      const carousel = document.getElementById('carousel');
+      const scrollLeftBtn = document.getElementById('scrollLeft');
+      const scrollRightBtn = document.getElementById('scrollRight');
+
+      scrollLeftBtn?.addEventListener('click', () => {
+        carousel.scrollBy({ left: -350, behavior: 'smooth' });
+      });
+
+      scrollRightBtn?.addEventListener('click', () => {
+        carousel.scrollBy({ left: 350, behavior: 'smooth' });
+      });
+    });
+  </script>
+</SectionWrapper>

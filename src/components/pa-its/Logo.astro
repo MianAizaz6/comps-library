@@ -1,0 +1,10 @@
+---
+import darkLogo from '~/assets/images/logo-dark.svg';
+import defaultLogo from '~/assets/images/logo-light.svg';
+import Image from '~/components/common/Image.astro';
+---
+
+<>
+  <Image class="h-7 w-auto aspect-auto dark:hidden" src={defaultLogo} alt="Q-MA-Bau Logo" />
+  <Image class="h-7 w-auto aspect-auto hidden dark:block" src={darkLogo} alt="Q-MA-Bau Logo" />
+</>
