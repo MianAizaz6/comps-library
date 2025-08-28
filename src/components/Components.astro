@@ -1,0 +1,71 @@
+---
+import Button from "../components/pa-its/Button.astro";
+---
+
+<div class="space-y-8 p-8">
+  <!-- Variants -->
+  <section>
+    <h2 class="text-xl font-bold mb-4">Variants</h2>
+    <div class="flex flex-wrap gap-4">
+      <Button title="Default" type="default" />
+      <Button title="Secondary" type="secondary" />
+      <Button title="Outlined" type="outlined" />
+      <Button title="Alternative" type="alternative" />
+      <Button title="Dark" type="dark" />
+      <Button title="Light" type="light" />
+      <Button title="Green" type="green" />
+      <Button title="Red" type="red" />
+      <Button title="Yellow" type="yellow" />
+      <Button title="Purple" type="purple" />
+    </div>
+  </section>
+
+  <!-- Sizes -->
+  <section>
+    <h2 class="text-xl font-bold mb-4">Sizes</h2>
+    <div class="flex flex-wrap gap-4 items-center">
+      <Button title="XS" size="xs" />
+      <Button title="SM" size="sm" />
+      <Button title="MD" size="md" />
+      <Button title="LG" size="lg" />
+      <Button title="XL" size="xl" />
+    </div>
+  </section>
+
+  <!-- With Icons -->
+  <section>
+    <h2 class="text-xl font-bold mb-4">With Icons</h2>
+    <div class="flex flex-wrap gap-4">
+      <Button title="Start Icon" type="default" startIcon="ph:star-fill" />
+      <Button title="End Icon" type="secondary" endIcon="ph:arrow-right" />
+      <Button title="Both Icons" type="outlined" startIcon="ph:plus" endIcon="ph:check" />
+    </div>
+  </section>
+
+  <!-- With Label -->
+  <section>
+    <h2 class="text-xl font-bold mb-4">With Label</h2>
+    <div class="flex flex-wrap gap-4">
+      <Button title="Notifications" label="9" type="default" />
+      <Button title="Messages" label="23" type="secondary" />
+    </div>
+  </section>
+
+  <!-- Loading & Disabled -->
+  <section>
+    <h2 class="text-xl font-bold mb-4">States</h2>
+    <div class="flex flex-wrap gap-4">
+      <Button title="Loading..." loading type="default" />
+      <Button title="Disabled" disabled type="red" />
+    </div>
+  </section>
+
+  <!-- Link Buttons -->
+  <section>
+    <h2 class="text-xl font-bold mb-4">As Links</h2>
+    <div class="flex flex-wrap gap-4">
+      <Button title="Internal Link" href="/" />
+      <Button title="External Link" href="https://astro.build" openInNewTab type="green" />
+    </div>
+  </section>
+</div>
