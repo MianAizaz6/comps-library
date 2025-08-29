@@ -1,0 +1,2 @@
+Diese Datei ist ein Platzhalter für das SCC-Zertifikat.
+In der Produktion sollte hier das echte PDF-Zertifikat platziert werden.

@@ -1,0 +1,29 @@
+---
+import RoundedHeaderNavigation from '~/components/pa-its/blocks/headers/RoundedHeaderNavigation.astro';
+import Layout from '~/layouts/Layout.astro';
+import OriginalFooter from '~/components/pa-its/blocks/footers/OriginalFooter.astro';
+
+import type { MetaData } from '~/types';
+import { headerData, footerData } from '~/navigation';
+
+export interface Props {
+  metadata?: MetaData;
+}
+
+const { metadata } = Astro.props;
+---
+
+<Layout metadata={metadata}>
+  <div class="fixed z-50 top-2 w-full">
+    <slot name="header">
+      <RoundedHeaderNavigation {...headerData} showToggleTheme showLanguagePicker />
+    </slot>
+  </div>
+  <main>
+    <slot />
+  </main>
+  <slot name="footer">
+    <OriginalFooter {...footerData} />
+  </slot>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</Layout>
